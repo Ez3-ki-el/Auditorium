@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
+using static UnityEditor.Progress;
 using static UnityEngine.ParticleSystem;
 
 public class Spawner : MonoBehaviour
@@ -8,7 +9,7 @@ public class Spawner : MonoBehaviour
     [Header("Pool Params")]
     public int maxPooledItem;
     public GameObject prefabParticle;
-    public IObjectPool<GameObject> poolParticles;
+    public ObjectPool<GameObject> poolParticles;
 
 
     [Header("Spawn")]
@@ -22,7 +23,7 @@ public class Spawner : MonoBehaviour
     {
         poolParticles = new ObjectPool<GameObject>(OnCreateItem, OnTakeItem, OnReturnToPool, OnDestroyItem, maxSize: maxPooledItem);
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < maxPooledItem; i++)
         {
             poolParticles.Release(CreateParticle());
         }
@@ -34,7 +35,6 @@ public class Spawner : MonoBehaviour
         if (chrono >= 1f / spawnRate)
         {
            poolParticles.Get();
-
             chrono = 0f;
 
         }
@@ -42,34 +42,29 @@ public class Spawner : MonoBehaviour
         chrono += Time.deltaTime;
     }
 
-
+    public int nbCreate = 0;
     private GameObject CreateParticle()
     {
 
+
+
         GameObject particle = Instantiate(prefabParticle);
 
-        //particle.GetComponent<Rigidbody2D>().velocity = Vector2.right * 10;
-
-        //var particleSystem = particle.AddComponent<ParticleSystem>();
-
-        //ParticleSystem.EmissionModule em = particleSystem.emission;
-        //ParticleSystem.ShapeModule shape = particleSystem.shape;
-
-        //em.rateOverTime = new ParticleSystem.MinMaxCurve(spawnRate, spawnRate + 10);
-        //shape.radius = spawnRadius;
-
+        particle.transform.position = (Vector2)transform.position + Random.insideUnitCircle * spawnRadius;
+        particle.transform.rotation = transform.rotation;
 
         ReturnToPool rtp = particle.AddComponent<ReturnToPool>();
 
-
-
         rtp.pool = poolParticles;
+        
         return particle;
     }
 
     public GameObject OnCreateItem()
     {
-        return CreateParticle();
+        GameObject particule = CreateParticle();
+        particule.SetActive(false);
+        return particule;
     }
 
     public void OnTakeItem(GameObject item) 

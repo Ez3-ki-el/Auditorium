@@ -178,11 +178,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5447794974175527211}
   - component: {fileID: 3755265115900661275}
-  - component: {fileID: 1195318139004378034}
   - component: {fileID: 9024410905967923740}
+  - component: {fileID: 2404821194229701991}
   m_Layer: 0
   m_Name: PrefabMusicBox
-  m_TagString: Untagged
+  m_TagString: Musicbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -299,8 +299,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!58 &1195318139004378034
-CircleCollider2D:
+--- !u!114 &9024410905967923740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2511190431584217219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a23f380b320d041af59ee1d74f642c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeIncrement: 0.2
+  volumeDecay: 0.2
+  decayInterval: 1
+  m_bars:
+  - {fileID: 6786332519341926473}
+  - {fileID: 2818466133223241506}
+  - {fileID: 3899564721397202120}
+  - {fileID: 8761563535535161797}
+  - {fileID: 6578712008101336579}
+  - {fileID: 7847864359747161026}
+  m_audioSource: {fileID: 3755265115900661275}
+  m_onColor: {r: 0.39376375, g: 0.6509434, b: 0.3469651, a: 1}
+  m_offColor: {r: 0.735849, g: 0.35259387, b: 0.32280168, a: 1}
+--- !u!61 &2404821194229701991
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -331,34 +356,19 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -1.1383429}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &9024410905967923740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2511190431584217219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a23f380b320d041af59ee1d74f642c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  volumeIncrement: 0.2
-  volumeDecay: 0.2
-  decayInterval: 1
-  m_bars:
-  - {fileID: 6786332519341926473}
-  - {fileID: 2818466133223241506}
-  - {fileID: 3899564721397202120}
-  - {fileID: 8761563535535161797}
-  - {fileID: 6578712008101336579}
-  - {fileID: 7847864359747161026}
-  m_audioSource: {fileID: 3755265115900661275}
-  m_onColor: {r: 0.39376375, g: 0.6509434, b: 0.3469651, a: 1}
-  m_offColor: {r: 0.735849, g: 0.35259387, b: 0.32280168, a: 1}
+  m_Size: {x: 1, y: 3.2766852}
+  m_EdgeRadius: 0
 --- !u!1 &5621402484412168255
 GameObject:
   m_ObjectHideFlags: 0
