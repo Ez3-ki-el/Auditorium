@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] musicBoxes;
     private bool isFull;
     private float chrono=0;
+    public LevelManager levelManager;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
             if (chrono > 2f)
             {
                 Debug.Log("WIN");
+                levelManager.UpLevel();
             }
             else
             {

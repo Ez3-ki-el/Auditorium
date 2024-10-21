@@ -28,9 +28,9 @@ public class MouseManager : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(pointerPosition);
         RaycastHit2D rayIntersect = Physics2D.GetRayIntersection(ray);
-
         if (rayIntersect.collider != null)
         {
+            Debug.LogError("Update 2");
             if (rayIntersect.transform.CompareTag("CircleInside"))
             {
                 Cursor.SetCursor(mouseMoveInsideTexture, new Vector2(mouseMoveInsideTexture.width / 2, mouseMoveInsideTexture.height / 2), CursorMode.Auto);
@@ -58,7 +58,6 @@ public class MouseManager : MonoBehaviour
             case InputActionPhase.Waiting:
                 break;
             case InputActionPhase.Started:
-                Debug.LogWarning("Click Started");
                 break;
             case InputActionPhase.Performed:
                 pointerPosition = context.ReadValue<Vector2>();
@@ -75,23 +74,11 @@ public class MouseManager : MonoBehaviour
                     if (_objectToResize != null)
                     {
                         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(pointerPosition);
-
-                        Debug.LogWarning("worldPosition " + worldPosition.ToString());
-
                         CircleShape circleShape = _objectToResize.GetComponent<CircleShape>();
                         Vector2 centre = _objectToResize.transform.GetComponent<Renderer>().bounds.center;
 
-
-                        Debug.LogWarning("centre " + centre.ToString());
                         var distance = Vector2.Distance(centre, worldPosition);
-
-                        Debug.LogError("START");
-                        Debug.LogError(distance);
-                        Debug.LogError(minimumRadius);
-                        Debug.LogError(maximumRadius);
-                        Debug.LogError(Mathf.Clamp(distance, minimumRadius, maximumRadius));
-                        circleShape.Radius = Mathf.Clamp(distance, minimumRadius, maximumRadius); //// <------------------------------------------ Vérifier cette valeur
-
+                        circleShape.Radius = Mathf.Clamp(distance, minimumRadius, maximumRadius); 
 
                         AreaEffector2D areaEff2D = _objectToResize.GetComponent<AreaEffector2D>();
                         areaEff2D.forceMagnitude = circleShape.Radius * 50;
@@ -102,12 +89,10 @@ public class MouseManager : MonoBehaviour
                 break;
             case InputActionPhase.Canceled:
 
-                Debug.LogWarning("End of click");
 
                 //Cursor.SetCursor()
                 break;
             default:
-                Debug.LogWarning("default");
                 break;
         }
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Pool;
 
 using static UnityEditor.Progress;
@@ -17,6 +18,9 @@ public class Spawner : MonoBehaviour
     public float spawnRadius;
 
     private float chrono;
+    private UnityEvent<int> MyIntEvent;
+
+    //public GameEvent OnHitEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +38,7 @@ public class Spawner : MonoBehaviour
     {
         if (chrono >= 1f / spawnRate)
         {
-           poolParticles.Get();
+            poolParticles.Get();
             chrono = 0f;
 
         }
@@ -56,7 +60,7 @@ public class Spawner : MonoBehaviour
         ReturnToPool rtp = particle.AddComponent<ReturnToPool>();
 
         rtp.pool = poolParticles;
-        
+
         return particle;
     }
 
@@ -67,15 +71,24 @@ public class Spawner : MonoBehaviour
         return particule;
     }
 
-    public void OnTakeItem(GameObject item) 
+    public void OnTakeItem(GameObject item)
     {
         item.transform.position = (Vector2)transform.position + Random.insideUnitCircle * spawnRadius;
         item.transform.rotation = transform.rotation;
-        item.SetActive(true); 
+        item.SetActive(true);
     }
 
     public void OnReturnToPool(GameObject item) { item.SetActive(false); }
 
     public void OnDestroyItem(GameObject item) { Destroy(item); }
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //CompareTag("Enemy")
+        //OnHitEvent.Trigger();
+    }
+    public void Hit()
+    {
+    }
 }
