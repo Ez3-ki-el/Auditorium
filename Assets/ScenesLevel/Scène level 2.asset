@@ -9,6 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff508105cd85fcf4e8608a5f7fe02631, type: 3}
-  m_Name: new ScriptableVariable
+  m_Script: {fileID: 11500000, guid: 58fbd124015669a4fa31ea0f8f761213, type: 3}
+  m_Name: "Sc\xE8ne level 2"
   m_EditorClassIdentifier: 
+  description: 
+  niveau: 2
+  scene: {fileID: 102900000, guid: f39f86b3390fdb14a8adb6f33cc00210, type: 3}

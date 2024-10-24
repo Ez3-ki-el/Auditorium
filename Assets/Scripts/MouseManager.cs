@@ -30,7 +30,6 @@ public class MouseManager : MonoBehaviour
         RaycastHit2D rayIntersect = Physics2D.GetRayIntersection(ray);
         if (rayIntersect.collider != null)
         {
-            Debug.LogError("Update 2");
             if (rayIntersect.transform.CompareTag("CircleInside"))
             {
                 Cursor.SetCursor(mouseMoveInsideTexture, new Vector2(mouseMoveInsideTexture.width / 2, mouseMoveInsideTexture.height / 2), CursorMode.Auto);
@@ -78,7 +77,7 @@ public class MouseManager : MonoBehaviour
                         Vector2 centre = _objectToResize.transform.GetComponent<Renderer>().bounds.center;
 
                         var distance = Vector2.Distance(centre, worldPosition);
-                        circleShape.Radius = Mathf.Clamp(distance, minimumRadius, maximumRadius); 
+                        circleShape.Radius = Mathf.Clamp(distance, minimumRadius, maximumRadius);
 
                         AreaEffector2D areaEff2D = _objectToResize.GetComponent<AreaEffector2D>();
                         areaEff2D.forceMagnitude = circleShape.Radius * 50;
@@ -114,32 +113,18 @@ public class MouseManager : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(pointerPosition);
                 RaycastHit2D rayIntersect = Physics2D.GetRayIntersection(ray);
 
-                if (rayIntersect.transform.CompareTag("CircleInside"))
+                if (rayIntersect && rayIntersect.transform)
                 {
-                    _objectToMove = rayIntersect.collider;
-                    //if (_objectToMove != null)
-                    //{
-                    //    Vector3 worldPosition = Camera.main.ScreenToWorldPoint(pointerPosition);
-                    //    worldPosition.z = 0;
-                    //    _objectToMove.transform.parent.transform.position = worldPosition;
-                    //}
+                    if (rayIntersect.transform.CompareTag("CircleInside"))
+                    {
+                        _objectToMove = rayIntersect.collider;
+                    }
+                    else if (rayIntersect.transform.CompareTag("CircleOutside"))
+                    {
+                        _objectToResize = rayIntersect.transform.gameObject;
+                    }
                 }
 
-                if (rayIntersect.transform.CompareTag("CircleOutside"))
-                {
-                    _objectToResize = rayIntersect.transform.gameObject;
-                    //if (_objectToResize != null)
-                    //{
-                    //    Vector3 worldPosition = Camera.main.ScreenToWorldPoint(pointerPosition);
-                    //    CircleShape circleShape = _objectToResize.GetComponent<CircleShape>();
-                    //    Vector2 centre = _objectToResize.transform.GetComponent<Renderer>().bounds.center;
-                    //    var distance = Vector2.Distance(centre, worldPosition);
-
-                    //    circleShape.Radius = Mathf.Clamp(distance, minimumRadius, maximumRadius);
-                    //    AreaEffector2D areaEff2D = _objectToResize.GetComponent<AreaEffector2D>();
-                    //    areaEff2D.forceMagnitude = circleShape.Radius * 50;
-                    //}
-                }
 
                 break;
             case InputActionPhase.Canceled:

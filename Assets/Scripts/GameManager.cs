@@ -6,13 +6,15 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
 
     public GameObject[] musicBoxes;
     private bool isFull;
-    private float chrono=0;
+    private float chrono = 0;
     public LevelManager levelManager;
 
     // Start is called before the first frame update
@@ -20,7 +22,7 @@ public class GameManager : MonoBehaviour
     {
 
         musicBoxes = GameObject.FindGameObjectsWithTag("Musicbox");
-   
+        levelManager.LoadUI();
     }
 
     // Update is called once per frame
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
             if (chrono > 2f)
             {
                 Debug.Log("WIN");
-                levelManager.UpLevel();
+                levelManager.NextLevel();
             }
             else
             {
@@ -54,4 +56,6 @@ public class GameManager : MonoBehaviour
     {
         return musicbox.GetComponent<AudioSource>().volume;
     }
+
+
 }
